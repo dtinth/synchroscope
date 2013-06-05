@@ -8,6 +8,15 @@ __synchroscope__ makes it very easy to share scope variables.
 Client
 ------
 
+Symlink or copy `client/sync.js` to your Angular project, and include it like this.
+
+```html
+<script src="path/to/sync.js"></script>
+```
+
+Then, declare a dependency on `synchroscope` module,
+ask for the `$ync` service, and just call it:
+
 ```javascript
 angular.module('myApp', ['synchroscope'])
   .controller('MyController', function($scope, $ync) {
