@@ -1,0 +1,20 @@
+{
+  "name": "synchroscope",
+  "version": "0.0.0",
+  "description": "Synchronize AngularJS scope between clients",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com>",
+  "license": "BSD",
+  "devDependencies": {
+    "connect": "~2.7.11",
+    "socket.io": "~0.9.14"
+  }
+}
