@@ -6,10 +6,13 @@
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
+  <h1>Synchroscope Demo</h1>
+  <p>Open this page in different tabs or browsers!</p>
   <div ng-controller="MyController">
     <p>hello = <input ng-model="hello"></p>
     <p>world = <input ng-model="world"></p>
-    <p>{{hello}} {{world}}</p>
+    <p>foo = <input ng-model="foo"> (this one is not shared)</p>
+    <p>{{hello}} {{world}} {{foo}}</p>
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script src="lib/angular/angular.js"></script>
