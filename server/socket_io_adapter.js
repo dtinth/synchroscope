@@ -13,7 +13,7 @@ SocketIOClient.prototype.send = function(data) {
   this.socket.emit('message', data)
 }
 SocketIOClient.prototype.broadcast = function(data) {
-  this.io.emit('message', data)
+  this.socket.broadcast.emit('message', data)
 }
 
 function createRoom(io, room) {

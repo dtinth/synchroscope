@@ -34,7 +34,7 @@ var $YNCServer = function(connection) {
     var that = this
     Object.keys(this.states).forEach(function(name) {
       var s = that.states[name]
-      client.send({ name: name, version: s.version, value: s.value, clientId: s.lastOwner })
+      client.send({ name: name, version: s.version, value: s.value, clientId: '-' })
     })
     client.send({ setClientId: this.generateClientId() })
   }
@@ -42,3 +42,4 @@ var $YNCServer = function(connection) {
 })($YNCServer.prototype)
 
 if (typeof module != 'undefined') module.exports = $YNCServer
+

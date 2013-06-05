@@ -27,6 +27,10 @@ function $YNC(connection) {
     ;delete s.nextVersion
   }
 
+  proto.connect = function() {
+    this.connection.connect()
+  }
+
   proto.set = function(name, value) {
     value = this.encode(value)
     var s = this.states[name] || (this.states[name] = { version: '-' })
@@ -49,6 +53,10 @@ function $YNC(connection) {
   proto.recv = function(event) {
     if (event.setClientId) {
       this.clientId = event.setClientId
+      if (!this.ready) {
+        this.ready = true
+        this.onready()
+      }
     } else {
       var name = event.name
       var s = this.states[name] || (this.states[name] = { })
@@ -62,34 +70,69 @@ function $YNC(connection) {
 
 })($YNC.prototype)
 
+
+function $YNCSocketIOConnection(path, channel) {
+  var socket
+
+  // to simulate network latency
+  function work(fn) {
+    if (!$YNC.latencyTest) return fn()
+    setTimeout(fn, $YNC.latencyTest)
+  }
+
+  var connection = {
+    send: function(data) {
+      if ($YNC.debug) console.log('>>', data)
+      work(function() {
+        socket.emit('message', data)
+      })
+    }
+  , connect: function() {
+      socket = io.connect(path)
+      socket.emit('room', channel)
+      socket.on('message', function(data) {
+        if ($YNC.debug) console.log('<<', data)
+        work(function() {
+          connection.recv(data)
+        })
+      })
+    }
+  }
+  return connection
+}
+
 if (typeof angular != 'undefined') {
   angular.module('synchroscope', [])
     .factory('$ync', function($parse) {
-      return function Synchroscope(scope, keys) {
-        var socket = io.connect('/synchroscope')
-        socket.emit('room', 'test')
-        var connection = {
-          send: function(data) {
-            if ($YNC.debug) console.log('>>', data)
-            socket.emit('message', data)
+      return function Synchroscope(scope, keys, connection) {
+
+        if (typeof connection != 'object') {
+          if (typeof connection == 'string') {
+            connection = new $YNCSocketIOConnection('/synchroscope', connection)
+          } else {
+            var match = location.search.match(/channel=(\w+)/)
+            if (!match) {
+              alert('no channel')
+              throw new Error('no channel!')
+            }
+            connection = new $YNCSocketIOConnection('/synchroscope', match[1])
           }
         }
-        socket.on('message', function(data) {
-          if ($YNC.debug) console.log('<<', data)
-          connection.recv(data)
-        })
+
         var sync = new $YNC(connection)
         sync.onstatechange = function(key, value) {
           scope.$apply(function() {
             $parse(key).assign(scope, value)
           })
         }
-        keys.forEach(function(key) {
-          scope.$watch(key, function(value) {
-            sync.set(key, value)
+        sync.onready = function() {
+          keys.forEach(function(key) {
+            scope.$watch(key, function(value) {
+              sync.set(key, value)
+            })
           })
-        })
-        window.sync = sync
+        }
+        sync.connect()
         
       }
     })

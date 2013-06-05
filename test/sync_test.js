@@ -5,13 +5,28 @@ describe('$YNC', function() {
   var longEnough = 10000
 
   beforeEach(function() {
-    connection = jasmine.createSpyObj('connection', ['send'])
+    connection = jasmine.createSpyObj('connection', ['send', 'connect'])
     sync = new $YNC(connection)
     sync.onstatechange = jasmine.createSpy('onstatechange')
+    sync.onready = jasmine.createSpy('onready')
     jasmine.Clock.useMock()
   })
 
   var wait = function(time) { jasmine.Clock.tick(time); }
+
+  describe('#connect', function() {
+    it('should call connect() on connection', function() {
+      sync.connect()
+      expect(connection.connect).toHaveBeenCalled()
+    })
+  })
+
+  describe('#onready', function() {
+    it('should be called when clientId is set', function() {
+      connection.recv({ setClientId: 'hello' })
+      expect(sync.onready).toHaveBeenCalled()
+    })
+  })
 
   describe('#generateVersion', function() {
     it('should have clientId in it', function() {

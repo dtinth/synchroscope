@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start example/config/karma.conf.js --single-run"
   },
   "repository": "",
   "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com>",
