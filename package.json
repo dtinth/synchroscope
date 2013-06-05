@@ -10,11 +10,24 @@
   "scripts": {
     "test": "karma start example/config/karma.conf.js --single-run"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dtinth/synchroscope.git"
+  },
   "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com>",
   "license": "BSD",
   "devDependencies": {
     "connect": "~2.7.11",
     "socket.io": "~0.9.14"
-  }
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "ab2cc71e9bd3bcee90d98f83824ceac560d586d4",
+  "dependencies": {
+    "connect": "~2.7.11",
+    "socket.io": "~0.9.14"
+  },
+  "keywords": [
+    "angular",
+    "realtime"
+  ]
 }
