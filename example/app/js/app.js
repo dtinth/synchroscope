@@ -9,6 +9,6 @@ angular.module('myApp', ['synchroscope'])
     $scope.hello = 'initial data'
     $scope.world = 'for synchroscope demo'
     
-    $ync($scope, ['hello', 'world'])
+    $ync($scope, ['hello', 'world'], 'test')
     
   })

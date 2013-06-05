@@ -10,6 +10,8 @@ function $YNC(connection) {
 ;(function(proto) {
 
   var uid = 0
+  proto.rateLimit = 10
+
   proto.generateVersion = function() {
     return (++uid) + '.' + (new Date().getTime()) + '.' + (Math.random()) + '.' + this.clientId
   }
@@ -39,7 +41,7 @@ function $YNC(connection) {
     s.nextVersion = version
     s.value = value
     if (!s.timeout) {
-      s.timeout = setTimeout(this.sendState.bind(this, name, s), 1000 / 30)
+      s.timeout = setTimeout(this.sendState.bind(this, name, s), 1000 / this.rateLimit)
     }
   }
 

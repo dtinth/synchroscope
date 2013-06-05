@@ -47,13 +47,16 @@ describe('$YNC', function() {
       expect(event.name).toEqual('hello')
       expect(event.value).toEqual(sync.encode('a'))
     })
-    it('should not send the data more than 30 calls per second', function() {
-      for (var i = 0; i < 100; i ++) {
-        sync.set('test', i)
-        wait(10)
-      }
-      wait(longEnough)
-      expect(connection.send.callCount).not.toBeGreaterThan(30)
+    ;[60,30,10,5].forEach(function(rate) {
+      it('should not send the data more than ' + rate + ' calls/second when rate limit is ' + rate, function() {
+        sync.rateLimit = rate
+        for (var i = 0; i < 100; i ++) {
+          sync.set('test', i)
+          wait(10)
+        }
+        wait(longEnough)
+        expect(connection.send.callCount).not.toBeGreaterThan(rate)
+      })
     })
     it('should send different data', function() {
       sync.set('test', ['a', 'b', 'c'])
