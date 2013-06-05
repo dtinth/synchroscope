@@ -1,6 +1,6 @@
 {
   "name": "synchroscope",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Synchronize AngularJS scope between clients",
   "main": "index.js",
   "directories": {
