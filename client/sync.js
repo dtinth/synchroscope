@@ -91,7 +91,9 @@ function $YNCSocketIOConnection(path, channel) {
     }
   , connect: function() {
       socket = io.connect(path)
-      socket.emit('room', channel)
+      socket.on('connect', function() {
+        socket.emit('room', channel)
+      })
       socket.on('message', function(data) {
         if ($YNC.debug) console.log('<<', data)
         work(function() {
