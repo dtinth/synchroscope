@@ -135,6 +135,8 @@ if (typeof angular != 'undefined') {
           })
         }
         sync.connect()
+
+        return sync
         
       }
     })
