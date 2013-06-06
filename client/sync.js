@@ -49,9 +49,11 @@ function $YNC(connection) {
   }
 
   proto.encode = function(o) {
+    if (o === undefined) return 'undefined'
     return escape(JSON.stringify(o))
   }
   proto.decode = function(o) {
+    if (o === 'undefined') return undefined
     return JSON.parse(unescape(o))
   }
 

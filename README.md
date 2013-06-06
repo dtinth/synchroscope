@@ -78,10 +78,12 @@ require('synchroscope').listen(io.of('/synchroscope'))
 Limitations
 -----------
 
+* All synchronized data must be `JSON.stringify`able (with the exception of undefined, which is handled specially).
 * This server stores all states in-memory. This server will not scale across multiple processes.
 * Each variable synchronizes on its own. If a client sets 2 variable at the same time,
   it is possible that other clients may receive one variable before another.
 * When the server is restarted, funny things may happen. (clients may go out of sync)
+    * If you restart your web server often, then it may be a good idea to run a synchroscope server separately.
 
 
 

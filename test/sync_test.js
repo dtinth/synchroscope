@@ -105,7 +105,8 @@ describe('$YNC', function() {
       'an array': [1, 2, 3, 4],
       'an object': { a: 1, b: 2 },
       'an object with reversed key order': { b: 2, a: 1 },
-      'null': null
+      'null': null,
+      'undefined': undefined
     }
     Object.keys(givens).forEach(function(key) {
       var value = givens[key]
