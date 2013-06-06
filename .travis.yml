@@ -6,9 +6,9 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install --quiet -g karma
-  - ./scripts/web-server.js > /dev/null &
+  - ./web-server.js > /dev/null &
   - sleep 1 # give server time to start
 
 script:
-  - karma start config/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
-  # - karma start config/karma-e2e.conf.js --reporters=dots --browsers=Firefox
+  - karma start example/config/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
+  - karma start example/config/karma-e2e.conf.js --reporters=dots --browsers=Firefox
