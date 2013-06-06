@@ -5,15 +5,23 @@ synchroscope ($YNC) [![(Build Status)](https://travis-ci.org/dtinth/synchroscope
 For interactive web applications that are to be run on multiple devices at the same time,
 __synchroscope__ makes it very easy to share scope variables.
 
+
+Demo
+----
+
+* [Tic Tac Toe Game](http://jsfiddle.net/thai/8Gsyr/)
+
+
 Client
 ------
 
 synchroscope uses `Function.prototype.bind` which is unavailable in some older browsers (such as iOS5 Safari).
 Please use [__es5-shim__](https://github.com/kriskowal/es5-shim) if you want to target those.
 
-Symlink or copy `client/sync.js` to your Angular project, and include it like this.
+Symlink or copy `client/sync.js` to your Angular project, and include it along with `socket.io.js` like this:
 
 ```html
+<script src="/socket.io/socket.io.js"></script>
 <script src="path/to/es5-shim.js"></script>
 <script src="path/to/sync.js"></script>
 ```
@@ -38,6 +46,9 @@ angular.module('myApp', ['synchroscope'])
 
 As soon as you call `$ync`, the keys `hello` and `world` will be
 synchronized across all browser clients.
+
+When the initial synchronization is made, the `$scope.$ynchronized` property will become __true__.
+You can check that property to display loading screen or something.
 
 
 Server
