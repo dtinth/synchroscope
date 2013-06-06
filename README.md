@@ -61,7 +61,7 @@ The third argument for the $ync function can be in form of:
 
 * `http://hostname:port/synchroscope#roomName`
     * The server and path is specified before the hash sign.
-* 'roomName'
+* `roomName`
     * The server is assumed to be the same server, with path /synchroscope. This is the same as `/synchroscope#roomName`.
 
 
