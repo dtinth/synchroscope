@@ -8,15 +8,14 @@
 <body>
   <h1>Synchroscope Demo</h1>
   <p>Open this page in different tabs or browsers!</p>
-  <div ng-controller="MyController">
-    <p>hello = <input ng-model="hello"></p>
-    <p>world = <input ng-model="world"></p>
-    <p>foo = <input ng-model="foo"> (this one is not shared)</p>
-    <p>{{hello}} {{world}} {{foo}}</p>
+  <div ng-repeat="(key,room) in {'test1': 'room a', 'test2': 'room a', 'test3': 'room b'}" class="frame">
+    <ng-include id="{{key}}" src="'test.html'"></ng-include>
   </div>
+  <script src="lib/es5-shim.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="lib/angular/angular.js"></script>
   <script src="js/app.js"></script>
-  <script src="lib/sync.js"></script>
+  <script src="../../client/sync.js"></script>
+  <script>//$YNC.latencyTest = 1000</script>
 </body>
 </html>

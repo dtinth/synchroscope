@@ -90,7 +90,7 @@ function $YNCSocketIOConnection(path, channel) {
       })
     }
   , connect: function() {
-      socket = io.connect(path)
+      socket = io.connect(path, { 'force new connection': true })
       socket.on('connect', function() {
         socket.emit('room', channel)
       })

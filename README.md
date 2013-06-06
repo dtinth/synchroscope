@@ -8,9 +8,13 @@ __synchroscope__ makes it very easy to share scope variables.
 Client
 ------
 
+synchroscope uses `Function.prototype.bind` which is unavailable in some older browsers (such as iOS5 Safari).
+Please use [__es5-shim__](https://github.com/kriskowal/es5-shim) if you want to target those.
+
 Symlink or copy `client/sync.js` to your Angular project, and include it like this.
 
 ```html
+<script src="path/to/es5-shim.js"></script>
 <script src="path/to/sync.js"></script>
 ```
 
