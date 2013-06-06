@@ -5,7 +5,7 @@
 
 describe('synchroscope + example app', function() {
 
-  var aBit = 0.3
+  var aBit = 0.5
   
   beforeEach(function() {
     browser().navigateTo('/example/app/index.html?e2etesting')
