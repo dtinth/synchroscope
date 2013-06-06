@@ -73,7 +73,7 @@ function $YNC(connection) {
 })($YNC.prototype)
 
 
-function $YNCSocketIOConnection(path, channel) {
+function $YNCSocketIOConnection(options) {
   var socket
 
   // to simulate network latency
@@ -90,9 +90,9 @@ function $YNCSocketIOConnection(path, channel) {
       })
     }
   , connect: function() {
-      socket = io.connect(path, { 'force new connection': true })
+      socket = io.connect(options.server, { 'force new connection': true })
       socket.on('connect', function() {
-        socket.emit('room', channel)
+        socket.emit('room', options.room)
       })
       socket.on('message', function(data) {
         if ($YNC.debug) console.log('<<', data)
@@ -105,22 +105,36 @@ function $YNCSocketIOConnection(path, channel) {
   return connection
 }
 
+$YNCSocketIOConnection.parseOpt = function parseOpt(str) {
+  var server = '/synchroscope', room
+  if (typeof str == 'string') {
+    var index = str.indexOf('#')
+    if (index > -1) {
+      server = str.substr(0, index)
+      room = str.substr(index + 1)
+    } else {
+      room = str
+    }
+  } else {
+    var match = location.search.match(/channel=(\w+)/)
+    if (!match) {
+      window.alert('no channel specified! add ?channel=yourChannelName to URL')
+      throw new Error('no channel!')
+    }
+    room = match[1]
+  }
+  return { server: server, room: room }
+}
+
 if (typeof angular != 'undefined') {
   angular.module('synchroscope', [])
     .factory('$ync', function($parse) {
+
+
       return function Synchroscope(scope, keys, connection) {
 
         if (typeof connection != 'object') {
-          if (typeof connection == 'string') {
-            connection = new $YNCSocketIOConnection('/synchroscope', connection)
-          } else {
-            var match = location.search.match(/channel=(\w+)/)
-            if (!match) {
-              alert('no channel')
-              throw new Error('no channel!')
-            }
-            connection = new $YNCSocketIOConnection('/synchroscope', match[1])
-          }
+          connection = new $YNCSocketIOConnection($YNCSocketIOConnection.parseOpt(connection))
         }
 
         var sync = new $YNC(connection)
@@ -133,7 +147,10 @@ if (typeof angular != 'undefined') {
           keys.forEach(function(key) {
             scope.$watch(key, function(value) {
               sync.set(key, value)
-            })
+            }, true)
+          })
+          scope.$apply(function() {
+            scope.$ynchronized = true
           })
         }
         sync.connect()

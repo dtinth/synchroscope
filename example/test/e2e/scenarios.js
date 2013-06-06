@@ -12,6 +12,9 @@ describe('synchroscope + example app', function() {
     sleep(aBit * 2)
   })
 
+  it('should set the $ynchronized flag', function() {
+    expect(using('#test1').binding('$ynchronized')).toBeTruthy()
+  })
   it('should initialize with the same data', function() {
     element('#test1 .hello').query(function(text1, done) {
       expect(element('#test2 .hello').val()).toEqual(text1.val())

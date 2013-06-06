@@ -1,6 +1,6 @@
 'use strict';
 
-/*global angular,$YNCSocketIOConnection*/
+/*global angular,$YNC*/
 
 angular.module('myApp', ['synchroscope'])
   .controller('MyController', function($scope, $ync) {
@@ -14,11 +14,11 @@ angular.module('myApp', ['synchroscope'])
     
     // == FOR E2E TESTING ONLY ==
     if (location.search.match(/e2etesting/)) {
-      // when we are doing e2e testing,
-      // we need to put specific URL for websocket server and create a connection ourself
+      // when we are doing e2e testing, we must set the url to make it
+      // use the real server, instead of karma's proxy,
       // because karma won't proxy websockets for us :(
       // we also want 100ms of latency
-      room = new $YNCSocketIOConnection('http://localhost:8000/synchroscope', room)
+      room = 'http://localhost:8000/synchroscope#' + room
       $YNC.latencyTest = 100
     }
 

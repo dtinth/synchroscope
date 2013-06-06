@@ -1,6 +1,6 @@
 {
   "name": "synchroscope",
-  "version": "0.0.3",
+  "version": "0.0.3-6",
   "description": "Synchronize AngularJS scope between clients",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start example/config/karma.conf.js --single-run"
+    "test": "karma start example/config/karma.conf.js --single-run",
+    "start": "demo/server.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,9 @@
   "keywords": [
     "angular",
     "realtime"
-  ]
+  ],
+  "subdomain": "synchroscope",
+  "engines": {
+    "node": "*"
+  }
 }
