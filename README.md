@@ -1,5 +1,5 @@
 
-synchroscope ($YNC)
+synchroscope ($YNC) [![(Build Status)](https://travis-ci.org/dtinth/synchroscope.png?branch=master)](https://travis-ci.org/dtinth/synchroscope)
 ===================
 
 For interactive web applications that are to be run on multiple devices at the same time,
