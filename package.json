@@ -15,7 +15,7 @@
     "url": "git://github.com/dtinth/synchroscope.git"
   },
   "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "connect": "~2.7.11",
     "socket.io": "~0.9.14"

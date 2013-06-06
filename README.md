@@ -49,3 +49,7 @@ Let's assume that `io` is a Socket.IO server object obtained by something like t
 ```javascript
 require('synchroscope').listen(io.of('/synchroscope'))
 ```
+
+License
+-------
+MIT.
