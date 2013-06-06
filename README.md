@@ -15,9 +15,6 @@ Demo
 Client
 ------
 
-synchroscope uses `Function.prototype.bind` which is unavailable in some older browsers (such as iOS5 Safari).
-Please use [__es5-shim__](https://github.com/kriskowal/es5-shim) if you want to target those.
-
 Symlink or copy `client/sync.js` to your Angular project, and include it along with `socket.io.js`.
 
 If you include [__CryptoJS.MD5__](https://code.google.com/p/crypto-js/) on your page, synchroscope will generate
@@ -27,7 +24,6 @@ which may help prevent editing conflicts a little bit.
 ```html
 <script src="/socket.io/socket.io.js"></script>
 <script src="path/to/md5.js"></script><!-- recommended -->
-<script src="path/to/es5-shim.js"></script><!-- if you want to support few older browsers -->
 <script src="path/to/sync.js"></script>
 ```
 
