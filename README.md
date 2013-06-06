@@ -83,7 +83,8 @@ Limitations
 * Each variable synchronizes on its own. If a client sets 2 variable at the same time,
   it is possible that other clients may receive one variable before another.
 * When the server is restarted, funny things may happen. (clients may go out of sync)
-    * If you restart your web server often, then it may be a good idea to run a synchroscope server separately.
+    * If you restart your web server often, then it may be a good idea to run a synchroscope server separately...
+        as easy as `node --eval 'require("synchroscope").listen(require("socket.io").listen(8008).of("/synchroscope"))'`.
 
 
 
