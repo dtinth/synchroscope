@@ -1,5 +1,5 @@
 
-/*global escape, angular, unescape, io, window*/
+/*global escape, angular, unescape, io, window, CryptoJS*/
 
 function $YNC(connection) {
   this.connection = connection
@@ -12,7 +12,10 @@ function $YNC(connection) {
   var uid = 0
   proto.rateLimit = 10
 
-  proto.generateVersion = function() {
+  proto.generateVersion = function(str) {
+    if (typeof CryptoJS != 'undefined' && typeof CryptoJS.MD5 == 'function') {
+      return CryptoJS.MD5(str).toString()
+    }
     return (++uid) + '.' + (new Date().getTime()) + '.' + (Math.random()) + '.' + this.clientId
   }
 
@@ -37,7 +40,7 @@ function $YNC(connection) {
     value = this.encode(value)
     var s = this.states[name] || (this.states[name] = { version: '-' })
     if (s.value === value) return
-    var version = this.generateVersion()
+    var version = this.generateVersion(value)
     s.nextVersion = version
     s.value = value
     if (!s.timeout) {

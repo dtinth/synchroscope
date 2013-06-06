@@ -1,4 +1,4 @@
-/*global $YNC, describe, beforeEach, it, jasmine, expect*/
+/*global $YNC, describe, beforeEach, afterEach, it, jasmine, expect*/
 describe('$YNC', function() {
 
   var sync, connection
@@ -29,12 +29,36 @@ describe('$YNC', function() {
   })
 
   describe('#generateVersion', function() {
-    it('should have clientId in it', function() {
-      sync.clientId = 'helloworldSOCKET'
-      expect(sync.generateVersion()).toMatch(/helloworldSOCKET/)
+    it('should generate different versions with different input string', function() {
+      expect(sync.generateVersion('a')).not.toEqual(sync.generateVersion('b'))
     })
-    it('should generate different versions each time', function() {
-      expect(sync.generateVersion()).not.toEqual(sync.generateVersion())
+    describe('when CryptoJS.MD5 is present', function() {
+      var old
+      beforeEach(function() {
+        ;(function() {
+          old = this.CryptoJS
+          this.CryptoJS = {
+            MD5: jasmine.createSpy('MD5').andCallFake(function(x) {
+              return "md5(" + x + ")"
+            })
+          }
+        })()
+      })
+      it('should generate different versions with different input string', function() {
+        var old
+        expect(sync.generateVersion('a')).not.toEqual(sync.generateVersion('b'))
+      })
+      it('should call the MD5 function', function() {
+        sync.generateVersion('test')
+        ;(function() {
+          expect(this.CryptoJS.MD5).toHaveBeenCalledWith('test')
+        })()
+      })
+      afterEach(function() {
+        ;(function() {
+          this.CryptoJS = old
+        })()
+      })
     })
   })
 
