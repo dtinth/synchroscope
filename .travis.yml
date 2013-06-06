@@ -7,7 +7,7 @@ before_script:
   - export PORT=8000
   - sh -e /etc/init.d/xvfb start
   - npm install --quiet -g karma
-  - ./web-server.js > /dev/null &
+  - ./web_server.js > /dev/null &
   - sleep 1 # give server time to start
 
 script:
