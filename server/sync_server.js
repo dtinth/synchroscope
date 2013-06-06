@@ -1,13 +1,21 @@
 
 
-var $YNCServer = function(connection) {
-  this.connection = connection
-  this.states = {}
-  this.connection.recv = this.recv.bind(this)
-  this.connection.accept = this.accept.bind(this)
-}
+var $YNCServer = (function() {
 
-;(function(proto) {
+  function bind(fn, obj) {
+    return function() {
+      return fn.apply(obj, arguments)
+    }
+  }
+
+  function $YNCServer(connection) {
+    this.connection = connection
+    this.states = {}
+    this.connection.recv = bind(this.recv, this)
+    this.connection.accept = bind(this.accept, this)
+  }
+
+  var proto = $YNCServer.prototype
 
   proto.recv = function(event, client) {
     var name = event.name
@@ -39,7 +47,9 @@ var $YNCServer = function(connection) {
     client.send({ setClientId: this.generateClientId() })
   }
 
-})($YNCServer.prototype)
+  return $YNCServer
+
+})()
 
 if (typeof module != 'undefined') module.exports = $YNCServer
 

@@ -1,13 +1,27 @@
 
 /*global escape, angular, unescape, io, window, CryptoJS*/
 
-function $YNC(connection) {
-  this.connection = connection
-  this.states = {}
-  this.connection.recv = this.recv.bind(this)
-}
+var $YNC = (function() {
 
-;(function(proto) {
+  function bind(fn, obj) {
+    if (arguments.length > 2) {
+      var add = Array.prototype.slice.call(arguments, 2)
+      return function() {
+        return fn.apply(obj, add.concat(Array.prototype.slice.call(arguments)))
+      }
+    }
+    return function() {
+      return fn.apply(obj, arguments)
+    }
+  }
+
+  function $YNC(connection) {
+    this.connection = connection
+    this.states = {}
+    this.connection.recv = bind(this.recv, this)
+  }
+
+  var proto = $YNC.prototype
 
   var uid = 0
   proto.rateLimit = 10
@@ -44,7 +58,7 @@ function $YNC(connection) {
     s.nextVersion = version
     s.value = value
     if (!s.timeout) {
-      s.timeout = setTimeout(this.sendState.bind(this, name, s), 1000 / this.rateLimit)
+      s.timeout = setTimeout(bind(this.sendState, this, name, s), 1000 / this.rateLimit)
     }
   }
 
@@ -75,7 +89,9 @@ function $YNC(connection) {
     }
   }
 
-})($YNC.prototype)
+  return $YNC
+
+})()
 
 
 function $YNCSocketIOConnection(options) {
