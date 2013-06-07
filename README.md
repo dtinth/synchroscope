@@ -2,13 +2,14 @@
 synchroscope ($YNC) [![(Build Status)](https://travis-ci.org/dtinth/synchroscope.png?branch=master)](https://travis-ci.org/dtinth/synchroscope)
 ===================
 
-__synchroscope__ makes it very easy in to share Angular.js scope variables across multiple clients.
+__synchroscope__ makes it very easy in to share AngularJS scope variables across multiple clients.
 It can be used to make a real-time interactive web application that runs on multiple devices.
 
 
 Demo
 ----
 
+* [AngularJS Todos Demo](http://jsfiddle.net/thai/MxNJM/)
 * [Tic Tac Toe Game](http://jsfiddle.net/thai/8Gsyr/)
 
 
