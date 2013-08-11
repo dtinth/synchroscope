@@ -1,4 +1,3 @@
-
 synchroscope ($YNC) [![(Build Status)](https://travis-ci.org/dtinth/synchroscope.png?branch=master)](https://travis-ci.org/dtinth/synchroscope)
 ===================
 
@@ -71,6 +70,13 @@ Let's assume that `io` is a Socket.IO server object obtained by something like t
 ```javascript
 require('synchroscope').listen(io.of('/synchroscope'))
 ```
+
+
+Projects Using synchroscope
+---------
+
+* [Freshy Camp Registration Webapp](http://me.dt.in.th/page/Synchroscope). Synchroscope was made for this app. Actually, it was extracted from this app.
+* [shoutpraises](https://github.com/dtinth/shoutpraises). Web based remotely controlled worship lyrics presentation application.
 
 Limitations
 -----------
