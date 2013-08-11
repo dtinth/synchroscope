@@ -6,7 +6,7 @@ before_script:
   - export DISPLAY=:99.0
   - export PORT=8000
   - sh -e /etc/init.d/xvfb start
-  - npm install --quiet -g karma
+  - npm install --quiet -g karma karma-ng-scenario
   - ./web_server.js > /dev/null &
   - sleep 1 # give server time to start
 
