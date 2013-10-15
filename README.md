@@ -12,6 +12,15 @@ Demo
 * [Tic Tac Toe Game](http://jsfiddle.net/thai/8Gsyr/)
 
 
+Demo Server
+-----------
+
+A demo server for Synchroscope is available at <http://synchroscope.herokuapp.com/>, so you can
+experiment with Synchroscope.
+
+Note that the server may restart (and the database reset) at any time!
+
+
 Client
 ------
 
